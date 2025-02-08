@@ -29,9 +29,16 @@ app.get("/", (c) => {
 
 // Register User
 app.post("/auth/register", async (c) => {
-  const { email, password }: { email: string; password: string } =
-    await c.req.json();
-  console.log(email, password);
+  const {
+    email,
+    password,
+    name,
+  }: { email: string; password: string; name: string } = await c.req.json();
+
+  console.log(email);
+
+  const userId = crypto.randomUUID();
+
   const hashedPassword = await Bun.password.hash(password, {
     algorithm: "bcrypt",
     cost: 4,
@@ -39,13 +46,33 @@ app.post("/auth/register", async (c) => {
 
   try {
     db.run("INSERT INTO users (id, email, password) VALUES (?, ?, ?)", [
-      crypto.randomUUID(),
+      userId,
       email,
       hashedPassword,
     ]);
+
+    const response = await fetch("http://localhost:5000/user/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: userId,
+        email,
+        name,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error("❌ Service-user failed");
+      db.run("DELETE FROM users WHERE id = ?", [userId]);
+      throw new Error("Failed to create user in service-user");
+    }
+
     return c.json({ message: "User registered successfully" });
   } catch (err) {
-    return c.json({ error: "Email already exists" }, 400);
+    return c.json(
+      { error: err instanceof Error ? err.message : "Failed to register user" },
+      400
+    );
   }
 });
 

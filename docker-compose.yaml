@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  service-auth:
+    build: ./service-auth
+    container_name: service-auth
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./service-auth/.env
+    networks:
+      - microservice-network
+    depends_on:
+      - service-user
+
+  service-user:
+    build: ./service-user
+    container_name: service-user
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./service-user/.env
+    networks:
+      - microservice-network
+
+networks:
+  microservice-network:
+    driver: bridge

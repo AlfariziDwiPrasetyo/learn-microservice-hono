@@ -39,7 +39,7 @@ app.get("/user/me", async (c) => {
   }
 
   try {
-    const response = await fetch("http://localhost:4000/auth/validate", {
+    const response = await fetch("http://service-auth:4000/auth/validate", {
       method: "GET",
       headers: { Authorization: authHeader },
     });

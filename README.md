@@ -8,7 +8,7 @@ This project implements a simple authentication system using **Hono** and **Bun*
 
 ## 📂 Project Structure
 ```
-├── service-auth/   # Nginx
+├── nginx/   # Nginx
 │   ├── nginx.conf
 │   └── Dockerfile
 ├── service-auth/   # Authentication service

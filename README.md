@@ -1,7 +1,7 @@
 # Simple Microservices Authentication System with Hono & Bun
 
 ## 📌 Overview
-This project implements a simple authentication system using **Hono** and **Bun** in a microservices architecture. It consists of two services:
+This project implements a simple authentication system using **Hono** and **Bun** for me to learn microservices architecture. It consists of two services:
 
 - **service-auth**: Handles user authentication (register, login, validate token).
 - **service-user**: Manages user profile information.
@@ -68,7 +68,7 @@ docker-compose up --build
 ### 6️⃣ Testing API
 Use **Postman** or similar tools to test the API.
 
-#### Register
+#### Register /auth/register
 **Request Body:**
 ```json
 {
@@ -84,7 +84,7 @@ Use **Postman** or similar tools to test the API.
 }
 ```
 
-#### Login
+#### Login /auth/login
 **Request Body:**
 ```json
 {
@@ -99,22 +99,7 @@ Use **Postman** or similar tools to test the API.
 }
 ```
 
-#### Validate Token
-**Headers:**
-```
-Authorization: Bearer eyJhbGciO.....
-```
-**Response:**
-```json
-{
-    "user": {
-        "id": "uuid",
-        "email": "user@example.com"
-    }
-}
-```
-
-#### Get User
+#### Get User /user/me
 **Headers:**
 ```
 Authorization: Bearer eyJhbGciO.....

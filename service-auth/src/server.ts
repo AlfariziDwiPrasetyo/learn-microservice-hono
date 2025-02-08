@@ -51,7 +51,7 @@ app.post("/auth/register", async (c) => {
       hashedPassword,
     ]);
 
-    const response = await fetch("http://service-user:5000/user/create", {
+    const response = await fetch("http://nginx/user/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

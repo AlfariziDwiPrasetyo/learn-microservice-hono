@@ -11,11 +11,11 @@ db.run(`CREATE TABLE IF NOT EXISTS users (
   password TEXT NOT NULL
 )`);
 
-if (!process.env.secret_key) {
+if (!process.env.SECRET_KEY) {
   throw new Error("SECRET_KEY is not defined in environment variables");
 }
 
-const SECRET_KEY: string = process.env.secret_key; // Ganti dengan env
+const SECRET_KEY: string = process.env.SECRET_KEY; // Ganti dengan env
 
 interface User {
   id: string;
@@ -78,7 +78,7 @@ app.get("/auth/validate", authMiddleware, async (c) => {
 });
 
 export default {
-  port: process.env.port,
+  port: process.env.PORT,
   fetch: app.fetch,
 };
-console.log(`Auth service running on ${process.env.port} `);
+console.log(`Auth service running on ${process.env.PORT} `);
